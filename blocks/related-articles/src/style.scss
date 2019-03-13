@@ -1,14 +1,15 @@
 .wp-block-starterx-related-articles {
-
-  &__items {
-
-  }
-
-  &__item {
-
+  &__img {
+    width: 196px;
+    height: 196px;
+    margin-bottom: 15px;
   }
 
   &__post-date {
 
+  }
+
+  .wp-block-columns {
+    margin-top: 20px;
   }
 }

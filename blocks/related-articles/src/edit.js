@@ -202,7 +202,7 @@ class RelatedArticlesEdit extends Component {
               const titleTrimmed = post.title.rendered.trim();
               return (
                 <div className="wp-block-column" key={ i }>
-                  <img src={ post.featured_media_data.source_url } alt={ post.featured_media_data.alt_text } />
+                  <img className="wp-block-starterx-related-articles__img" src={ post.featured_media_data.source_url } alt={ post.featured_media_data.alt_text } />
 
                   { displayPostDate && post.date_gmt &&
                   <time dateTime={ format('c', post.date_gmt) } className="wp-block-starterx-related-articles__post-date">

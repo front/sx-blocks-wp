@@ -1,15 +1,10 @@
 <?php
 /**
  * Server-side rendering of the `starterx/related-articles` block.
- *
- * @package WordPress
  */
-
 
 /**
  * Add more data in the REST API that we'll use in the blog post.
- *
- * @since 1.7
  */
 function starterx_related_articles_rest_fields() {
 	// Featured image urls.
@@ -30,8 +25,6 @@ add_action( 'rest_api_init', 'starterx_related_articles_rest_fields' );
 if ( ! function_exists( 'starterx_featured_media_data' ) ) {
 	/**
 	 * Get the featured image data that the post will use.
-	 *
-	 * @since 1.7
 	 */
 	function starterx_featured_media_data( $object ) {
 		$attachment = get_post( $object['featured_media'] );
@@ -42,9 +35,19 @@ if ( ! function_exists( 'starterx_featured_media_data' ) ) {
       // 'description' => $attachment->post_content,
 			'alt_text' => get_post_meta( $object['featured_media'], '_wp_attachment_image_alt', true),
 			'media_details' => wp_get_attachment_metadata($object['featured_media']),
-			'source_url' => $attachment->guid,
+			'source_url' => wp_get_attachment_image_src( $object['featured_media'], 'startex-square-196', false )[0],
 		);
 	}
+}
+
+if ( ! function_exists( 'starterx_related_articles_image_sizes' ) ) {
+	/**
+	 * Add image sizes.
+	 */
+	function starterx_related_articles_image_sizes() {
+			add_image_size( 'startex-square-196', 196, 196, true );
+	}
+	add_action( 'after_setup_theme', 'starterx_related_articles_image_sizes' );
 }
 
 /**
@@ -83,7 +86,9 @@ function render_block_startex_related_articles( $attributes ) {
 		}
 
 		$list_items_markup .= sprintf(
-			'<div class="wp-block-column"><a href="%1$s"><img src="%2$s" alt="%3$s" />',
+			'<div class="wp-block-column">'.
+				'<a href="%1$s">'.
+					'<img class="wp-block-starterx-related-articles__img" src="%2$s" alt="%3$s" />',
 			esc_url( get_permalink( $post ) ),
 			$attachment->guid,
 			get_post_meta( $attachment->ID, '_wp_attachment_image_alt', true )
@@ -98,7 +103,9 @@ function render_block_startex_related_articles( $attributes ) {
 		}
 
 		$list_items_markup .= sprintf(
-			'<label>%1$s</label></a></div>',
+					'<label>%1$s</label>'.
+				'</a>'.
+			'</div>',
 			$title
 		);
 	}
@@ -117,7 +124,10 @@ function render_block_startex_related_articles( $attributes ) {
 	}
 
 	$block_content = sprintf(
-		'<div class="%1$s"><h%2$s>%3$s</h%2$s><div class="%4$s">%5$s</div></div',
+		'<div class="%1$s">'.
+			'<h%2$s>%3$s</h%2$s>'.
+			'<div class="%4$s">%5$s</div>'.
+		'</div>',
 		esc_attr( $class ),
 		$attributes['titleLevel'],
 		$attributes['title'],
