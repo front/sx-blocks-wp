@@ -1,7 +1,7 @@
 # StarterX Blocks Collection
 
-A collection of Gutenberg Blocks by Frontkom.
+A collection of Gutenberg Blocks by Frontkom. All blocks are independent.
 
 ## Blocks
 
-- Related Articles
+- [Related Articles](blocks/related-articles/README.md)
