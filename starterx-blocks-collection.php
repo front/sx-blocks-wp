@@ -7,3 +7,6 @@
  */
 
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
+
+// Including blocks
+include 'blocks/related-articles/index.php';
