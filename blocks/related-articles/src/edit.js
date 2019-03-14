@@ -188,32 +188,32 @@ class RelatedArticlesEdit extends Component {
     return (
       <Fragment>
         { inspectorControls }
-        <div className={ `${this.props.className}` }>
+        <div className="related-articles">
           <RichText
             identifier="title"
-            wrapperClassName="wp-block-heading"
+            className="related-articles__title"
             tagName={ tagName }
             value={ title }
             onChange={ value => setAttributes({ title: value }) }
             formattingControls={ [] }
           />
-          <div className={ `wp-block-columns has-${columns}-columns` }>
+          <div className={ `related-articles__items wp-block-columns has-${columns}-columns` }>
             { latestPosts.map((post, i) => {
               const titleTrimmed = post.title.rendered.trim();
               return (
-                <div className="wp-block-column" key={ i }>
-                  <img className="wp-block-starterx-related-articles__img" src={ post.featured_media_data.source_url } alt={ post.featured_media_data.alt_text } />
+                <div className="related-articles__item wp-block-column" key={ i }>
+                  <img src={ post.featured_media_data.source_url } alt={ post.featured_media_data.alt_text } />
 
                   { displayPostDate && post.date_gmt &&
-                  <time dateTime={ format('c', post.date_gmt) } className="wp-block-starterx-related-articles__post-date">
+                  <time dateTime={ format('c', post.date_gmt) } className="related-articles__post-date">
                     { dateI18n(dateFormat, post.date_gmt) }
                   </time>
                   }
 
-                  <label>
+                  <p className="related-articles__item__title">
                     { titleTrimmed ? (
                       <RawHTML>{ titleTrimmed }</RawHTML>) : __('(Untitled)') }
-                  </label>
+                  </p>
                 </div>
               );
             })}
