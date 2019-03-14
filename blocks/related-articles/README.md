@@ -23,3 +23,7 @@ A list of articles filtered by category and tag.
 
 - Block heading
 - Articles displayed in columns (`wp-block-columns`)
+
+## Development
+
+Run `npm run dev` while the development (it will watch for code changes) and `npm run build` to generate the build files.
