@@ -7,6 +7,7 @@ const extractCSS = new ExtractTextPlugin('style.css');
 const extractEditor = new ExtractTextPlugin('editor.css');
 
 module.exports = {
+  devtool: 'source-map',
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'build'),
