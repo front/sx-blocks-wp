@@ -190,7 +190,7 @@ function render_block_startex_related_articles( $attributes ) {
 	// }
 
 	$columnsClass = 'related-articles__items wp-block-columns';
-	if ( isset( $attributes['columns'] ) && 'grid' === $attributes['postLayout'] ) {
+	if ( isset( $attributes['columns'] ) ) {
 		$columnsClass .= ' columns-' . $attributes['columns'];
 	}
 
