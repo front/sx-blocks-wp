@@ -95,7 +95,7 @@ add_action( 'rest_api_init', 'starterx_related_articles_rest_fields' );
  * Get the featured image data that the post will use.
  */
 function starterx_related_articles_featured_media_data( $object ) {
-	$attachment = get_post( $object['featured_media'] );
+	// $attachment = get_post( $object['featured_media'] );
 
 	return array(
 		'id' => $object['featured_media'],
@@ -210,9 +210,14 @@ function render_block_startex_related_articles( $attributes ) {
 }
 
 /**
- * Registers the `starterx/related-articles` block on server.
+ * Registers the `starterx/related-articles` block on server-side.
  */
 function register_block_startex_related_articles() {
+	if ( ! function_exists( 'register_block_type' ) ) {
+		// Gutenberg is not active.
+		return;
+	}
+
 	register_block_type(
 		'starterx/related-articles',
 		array(
