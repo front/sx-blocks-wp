@@ -198,7 +198,13 @@ class RelatedArticlesEdit extends Component {
             formattingControls={ [] }
           />
           <div className={ `related-articles__items wp-block-columns has-${columns}-columns` }>
-            { latestPosts.map((post, i) => {
+            { Array.from({ length: columns }).map((_v, i) => {
+              const post = latestPosts[i];
+
+              if (!post) {
+                return <div className="related-articles__item wp-block-column" key={ i }></div>;
+              }
+
               const titleTrimmed = post.title.rendered.trim();
               return (
                 <div className="related-articles__item wp-block-column" key={ i }>

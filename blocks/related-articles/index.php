@@ -142,48 +142,62 @@ function render_block_startex_related_articles( $attributes ) {
 	}
 
 	if ( isset( $attributes['tags'] ) ) {
-		$args['tags'] = $attributes['tags'];
+		$args['tax_query'] = array(
+			array(
+				'taxonomy' => 'post_tag',
+				'filed' => 'id',
+				'terms' => $attributes['tags']
+			)
+		);
 	}
 
 	$recent_posts = get_posts( $args );
 	$list_items_markup = '';
 
-	foreach ( $recent_posts as $post ) {
-		$title = get_the_title( $post );
-		$attachment = get_post( get_post_thumbnail_id( $post->ID ) );
+	for ( $i = 0; $i < $attributes['columns']; $i++ ) {
+		$post = $recent_posts[$i];
 
-		if ( ! $title ) {
-			$title = __( '(Untitled)' );
-		}
+		if ( $post->ID == '') {
+			$list_items_markup .= '<div class="related-articles__item wp-block-column"></div>';
+		} else {
+			$title = get_the_title( $post );
+			$attachment = get_post( get_post_thumbnail_id( $post->ID ) );
 
-		$list_items_markup .= sprintf(
-			'<div class="related-articles__item wp-block-column">'.
-				'<a href="%1$s">'.
-					'<img src="%2$s" alt="%3$s" />',
-			esc_url( get_permalink( $post ) ),
-			$attachment->guid,
-			get_post_meta( $attachment->ID, '_wp_attachment_image_alt', true )
-		);
+			if ( ! $title ) {
+				$title = __( '(Untitled)' );
+			}
 
-		if ( isset( $attributes['displayPostDate'] ) && $attributes['displayPostDate'] ) {
 			$list_items_markup .= sprintf(
-				'<time datetime="%1$s" class="related-articles__post-date">%2$s</time>',
-				esc_attr( get_the_date( 'c', $post ) ),
-				esc_html( get_the_date( '', $post ) )
+				'<div class="related-articles__item wp-block-column">'.
+					'<a href="%1$s">'.
+						'<img src="%2$s" alt="%3$s" />',
+				esc_url( get_permalink( $post ) ),
+				$attachment->guid,
+				get_post_meta( $attachment->ID, '_wp_attachment_image_alt', true )
+			);
+
+			if ( isset( $attributes['displayPostDate'] ) && $attributes['displayPostDate'] ) {
+				$list_items_markup .= sprintf(
+					'<time datetime="%1$s" class="related-articles__post-date">%2$s</time>',
+					esc_attr( get_the_date( 'c', $post ) ),
+					esc_html( get_the_date( '', $post ) )
+				);
+			}
+
+			$list_items_markup .= sprintf(
+						'<p class="related-articles__item__title">%1$s</p>'.
+					'</a>'.
+				'</div>',
+				$title
 			);
 		}
-
-		$list_items_markup .= sprintf(
-					'<p class="related-articles__item__title">%1$s</p>'.
-				'</a>'.
-			'</div>',
-			$title
-		);
 	}
 
 	$class = 'related-articles';
+
 	if ( isset( $attributes['className'] ) ) {
-		$class .= ' ' . $attributes['className'];	}
+		$class .= ' ' . $attributes['className'];
+	}
 
 	// if ( isset( $attributes['displayPostDate'] ) && $attributes['displayPostDate'] ) {
 	// 	$class .= ' has-dates';
@@ -191,7 +205,7 @@ function render_block_startex_related_articles( $attributes ) {
 
 	$columnsClass = 'related-articles__items wp-block-columns';
 	if ( isset( $attributes['columns'] ) ) {
-		$columnsClass .= ' columns-' . $attributes['columns'];
+		$columnsClass .= ' has-' . $attributes['columns'] . '-columns';
 	}
 
 	$block_content = sprintf(
