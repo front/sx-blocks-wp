@@ -154,12 +154,13 @@ function render_block_startex_related_articles( $attributes ) {
 	$recent_posts = get_posts( $args );
 	$list_items_markup = '';
 
-	for ( $i = 0; $i < $attributes['columns']; $i++ ) {
-		$post = $recent_posts[$i];
+	// Get total of posts
+	$n_posts = count($recent_posts);
 
-		if ( ! $post ) {
-			$list_items_markup .= '<div class="related-articles__item wp-block-column"></div>';
-		} else {
+	for ( $i = 0; $i < $attributes['columns']; $i++ ) {
+		if ( $i < $n_posts ) {
+			$post = $recent_posts[$i];
+
 			$title = get_the_title( $post );
 			$attachment = get_post( get_post_thumbnail_id( $post->ID ) );
 
@@ -190,6 +191,8 @@ function render_block_startex_related_articles( $attributes ) {
 				'</div>',
 				$title
 			);
+		} else {
+			$list_items_markup .= '<div class="related-articles__item wp-block-column"></div>';
 		}
 	}
 
