@@ -1,16 +1,22 @@
 /**
  * Internal dependencies
  */
-import { category, registerCategory } from '../../index.js';
 import edit from './edit';
-import './style.scss';
-import './editor.scss';
 
 const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
+const { dispatch, select } = wp.data;
 
+const category = {
+  slug: 'starterx', // needs to match the css class of the block container: ".wp-block-starterx-[block-name]"
+  title: __('StarterX Blocks'),
+};
+
+// Check the category
+const currentCategories = select('core/blocks').getCategories()
+.filter(item => item.slug !== category.slug);
 // Register the category
-registerCategory(category);
+dispatch('core/blocks').setCategories([category, ...currentCategories]);
 
 // Register the block
 registerBlockType('starterx/related-articles', {

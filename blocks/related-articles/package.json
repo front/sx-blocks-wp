@@ -2,28 +2,24 @@
   "name": "related-articles",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "build": "NODE_ENV=production webpack",
-    "dev": "webpack --watch"
-  },
+  "main": "src/index.js",
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@babel/core": "^7.4.0",
-    "@babel/preset-env": "^7.4.2",
-    "babel-loader": "^8.0.5",
-    "babel-plugin-transform-react-jsx": "^6.24.1",
-    "clean-webpack-plugin": "^1.0.0",
-    "css-loader": "^2.1.0",
+    "@wordpress/scripts": "^3.1.0",
+    "autoprefixer": "^9.5.0",
     "eslint": "^5.12.0",
     "eslint-plugin-react": "^7.12.4",
-    "extract-text-webpack-plugin": "4.0.0-beta.0",
     "node-sass": "^4.11.0",
-    "postcss-loader": "^3.0.0",
-    "sass-loader": "^7.1.0",
-    "url-loader": "^1.1.2",
-    "webpack": "^4.28.4",
-    "webpack-cli": "^3.2.1"
+    "postcss": "^7.0.14",
+    "postcss-cli": "^6.1.2",
+    "rimraf": "^2.6.3"
+  },
+  "scripts": {
+    "reset": "rimraf build",
+    "prebuild:css": "npm run reset && node-sass src -o build",
+    "build:css": "postcss build/*.css -u autoprefixer -b 'last 2 versions' --dir build",
+    "build": "npm run build:css && wp-scripts build",
+    "start": "npm run prebuild:css && node-sass src -wo build & wp-scripts start"
   }
 }
