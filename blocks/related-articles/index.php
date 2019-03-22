@@ -157,7 +157,7 @@ function render_block_startex_related_articles( $attributes ) {
 	for ( $i = 0; $i < $attributes['columns']; $i++ ) {
 		$post = $recent_posts[$i];
 
-		if ( $post->ID == '') {
+		if ( ! $post ) {
 			$list_items_markup .= '<div class="related-articles__item wp-block-column"></div>';
 		} else {
 			$title = get_the_title( $post );
