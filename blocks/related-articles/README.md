@@ -1,29 +1,29 @@
 # Related Articles
 
-A list of articles filtered by category and tag.
+A list of articles filtered by category and tag and displayed in columns.
 
-## Attributes
+### Attributes
 
-- **title** Block heading content ('Related Articles' by default)
-- **titleLevel** Block heading level (ex: h1, h2, h3, etc)
-- **categories** Selected category
-- **tags** Selected tag
-- **columns** Number of displayed articles
-- **displayPostDate** Flag to show/hide articles dates
+- `title`: Block heading content ('Related Articles' by default)
+- `titleLevel`: Block heading level (ex: h1, h2, h3, etc)
+- `categories`: Selected category
+- `tags`: Selected tag
+- `columns`: Number of displayed articles
+- `displayPostDate`: Flag to show/hide articles dates
 
-## Settings
+### Settings
 
-- Title level (h3 by default, min h1, max h6)
-- Columns (4 by default, min 2, max 6)
-- Category ('All' by default)
-- Tag ('All' by default)
-- Display article date (false by default)
+- Title level (`h3` by default, min h1, max h6)
+- Columns (`4` by default, min 2, max 6)
+- Category (`All` by default)
+- Tag (`All` by default)
+- Display article date (`false` by default)
 
-## Elements
+### Elements
 
-- Block heading
-- Articles displayed in columns (`wp-block-columns`)
+- A **heading** block
+- Articles displayed in **columns** (`wp-block-columns`)
 
 ## Development
 
-Run `npm run dev` while the development (it will watch for code changes) and `npm run build` to generate the build files.
+Run `npm run start` while the development (it will watch for code changes) and `npm run build` to generate the build files.
