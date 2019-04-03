@@ -135,6 +135,7 @@ function render_block_startex_related_articles( $attributes ) {
 		'order'            => 'desc',
 		'orderby'          => 'date',
 		'suppress_filters' => false,
+		'offset'					 => $attributes['offset'],
 	);
 
 	if ( isset( $attributes['categories'] ) ) {
@@ -264,6 +265,10 @@ function register_block_startex_related_articles() {
 				'displayPostDate' => array(
 					'type'    => 'boolean',
 					'default' => false,
+				),
+				'offset' => array(
+					'type'    => 'number',
+					'default' => 0,
 				),
 			),
 			'render_callback' => 'render_block_startex_related_articles',

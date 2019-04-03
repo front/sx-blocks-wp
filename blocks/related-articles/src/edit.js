@@ -5,6 +5,7 @@ const {
   RichText,
 } = wp.editor;
 const {
+  BaseControl,
   PanelBody,
   Placeholder,
   RangeControl,
@@ -115,7 +116,7 @@ class RelatedArticlesEdit extends Component {
   render () {
     const { attributes, setAttributes, latestPosts } = this.props;
     const { categoriesList, tagsList } = this.state;
-    const { displayPostDate, categories, tags, columns, title, titleLevel } = attributes;
+    const { displayPostDate, categories, tags, columns, title, titleLevel, offset } = attributes;
 
     const inspectorControls = (
       <InspectorControls>
@@ -160,6 +161,16 @@ class RelatedArticlesEdit extends Component {
             checked={ displayPostDate }
             onChange={ () => setAttributes({ displayPostDate: ! displayPostDate }) }
           />
+
+          <BaseControl label={ __('Offset') }>
+            <input
+              type="number"
+              onChange={ event => setAttributes({ offset: parseInt(event.target.value) }) }
+              value={ offset }
+              min="0"
+              step="1"
+            />
+          </BaseControl>
         </PanelBody>
       </InspectorControls>
     );
@@ -231,7 +242,7 @@ class RelatedArticlesEdit extends Component {
 }
 
 export default withSelect((select, props) => {
-  const { columns, categories, tags } = props.attributes;
+  const { columns, categories, tags, offset } = props.attributes;
   const { getEntityRecords } = select('core');
   const latestPostsQuery = {
     categories,
@@ -239,6 +250,7 @@ export default withSelect((select, props) => {
     order: 'desc',
     orderby: 'date',
     per_page: columns,
+    offset,
   };
 
   return {
