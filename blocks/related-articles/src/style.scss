@@ -1,5 +1,7 @@
 .related-articles {
   &__item {
+    align-self: flex-start;
+
     img {
       display: block;
       max-width: 100%;
