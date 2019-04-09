@@ -7,6 +7,7 @@ const translations = {
     'Related Articles Settings': [ 'Innstillinger for relaterte artikler' ],
     'Related Articles': [ 'Relaterte Artikler' ],
     'Title Level': [ 'Tittel nivå' ],
+    'Untitled': [ 'Uten navn' ],
   },
 };
 

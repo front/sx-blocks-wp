@@ -231,7 +231,7 @@ class RelatedArticlesEdit extends Component {
 
                   <p className="related-articles__item__title">
                     { titleTrimmed ? (
-                      <RawHTML>{ titleTrimmed }</RawHTML>) : __('(Untitled)') }
+                      <RawHTML>{ titleTrimmed }</RawHTML>) : `(${__('Untitled')})` }
                   </p>
                 </div>
               );

@@ -11,19 +11,9 @@
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
 /*********************************************
- * Registering assets and translations       *
+ * Registering assets                        *
  * of the `starterx/related-articles` block. *
  *********************************************/
-
-/**
- * Load all translations for our plugin from the MO file.
-*/
-add_action( 'init', 'starterx_related_articles_load_textdomain' );
-
-function starterx_related_articles_load_textdomain() {
-	load_plugin_textdomain( 'starterx-blocks', false, basename( __DIR__ ) . '/languages' );
-}
-
 /**
  * Registers all block assets so that they can be enqueued through Gutenberg in
  * the corresponding context.
@@ -41,7 +31,7 @@ function starterx_related_articles_register_block() {
 	wp_register_script(
 		'starterx-blocks-collection-' . $block,
 		plugins_url( 'build/index.js', __FILE__ ),
-		array( 'wp-editor', 'wp-i18n', 'wp-element', 'wp-components', 'wp-data' ),
+		array( 'wp-editor', 'wp-i18n', 'wp-element', 'wp-components', 'wp-data', 'wp-i18n' ),
 		filemtime( plugin_dir_path( __FILE__ ) . 'build/index.js' )
 	);
 
@@ -67,7 +57,6 @@ function starterx_related_articles_register_block() {
 }
 add_action( 'init', 'starterx_related_articles_register_block' );
 
-
 /*********************************************
  * Changing REST API and adding image size   *
  * of the `starterx/related-articles` block. *
@@ -83,7 +72,7 @@ function starterx_related_articles_rest_fields() {
 			'get_callback' => 'starterx_related_articles_featured_media_data',
 			'update_callback' => null,
 			'schema' => array(
-					'description' => __( 'Different sized featured images' ),
+					'description' => __( 'Different sized featured images', 'starterx-blocks-collection' ),
 					'type' => 'array',
 			),
 	)
@@ -166,7 +155,7 @@ function render_block_startex_related_articles( $attributes ) {
 			$attachment = get_post( get_post_thumbnail_id( $post->ID ) );
 
 			if ( ! $title ) {
-				$title = __( '(Untitled)' );
+				$title = '(' . __( 'Untitled', 'starterx-blocks-collection' ) . ')';
 			}
 
 			$list_items_markup .= sprintf(
@@ -243,7 +232,7 @@ function register_block_startex_related_articles() {
 				'title' => array(
 					'type' => 'string',
 					'selector' => 'h1,h2,h3,h4,h5,h6',
-					'default' => 'Related Articles',
+					'default' => __( 'Related Articles', 'starterx-blocks-collection' ),
 				),
 				'titleLevel' => array(
 					'type' => 'number',
