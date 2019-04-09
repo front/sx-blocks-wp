@@ -1,3 +1,5 @@
+// import translations from './translations/no.js';
+
 const { __ } = wp.i18n;
 const apiFetch = wp.apiFetch;
 const {
@@ -121,7 +123,7 @@ class RelatedArticlesEdit extends Component {
     const inspectorControls = (
       <InspectorControls>
         <PanelBody title={ __('Related Articles Settings') }>
-          <p>Title Level</p>
+          <p>{ __('Title Level') }</p>
           <Toolbar
             controls={ [1, 2, 3, 4, 5, 6].map(index => ({
               icon: 'heading',

@@ -2,10 +2,15 @@
  * Internal dependencies
  */
 import edit from './edit';
+import translations from './translations';
 
-const { __ } = wp.i18n;
+const { __, setLocaleData } = wp.i18n;
 const { registerBlockType } = wp.blocks;
 const { dispatch, select } = wp.data;
+
+const current_lang = document.documentElement.lang;
+
+setLocaleData(translations[current_lang]);
 
 const category = {
   slug: 'starterx', // needs to match the css class of the block container: ".wp-block-starterx-[block-name]"
