@@ -1,0 +1,25 @@
+{
+  "name": "related-articles-one-per-line",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@wordpress/scripts": "^3.1.0",
+    "autoprefixer": "^9.5.0",
+    "eslint": "^5.12.0",
+    "eslint-plugin-react": "^7.12.4",
+    "node-sass": "^4.11.0",
+    "postcss": "^7.0.14",
+    "postcss-cli": "^6.1.2",
+    "rimraf": "^2.6.3"
+  },
+  "scripts": {
+    "reset": "rimraf build",
+    "prebuild:css": "npm run reset && node-sass src -o build",
+    "build:css": "postcss build/*.css -u autoprefixer -b 'last 2 versions' --dir build",
+    "build": "npm run build:css && wp-scripts build",
+    "start": "npm run prebuild:css && node-sass src -wo build & wp-scripts start"
+  }
+}

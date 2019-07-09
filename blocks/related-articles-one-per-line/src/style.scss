@@ -1,0 +1,173 @@
+@import '_global.scss';
+@import '_breakpoints.scss';
+@import '_colors.scss';
+@import '_mixins.scss';
+
+.articles {
+  &--one-col.articles{
+    .article {
+      &__img {
+        @include rwd(tablet) {
+          width: 314px;
+          height: 314px;
+        }
+      }
+
+      &__info{
+
+        &__tag{
+          margin-top: 20px;
+          margin-bottom: 16px;
+        }
+
+        &__credits{
+          margin-top: 13px;
+          margin-bottom: 24px;
+        }
+
+        &__title {
+          font-size: 20px;
+        }
+
+        &__content{
+          font-size: 18px;
+          line-height: (29/18);
+        }
+      }
+    }
+  }
+
+  @include rwd(medium) {
+    margin-bottom: $space-quadruple;
+  }
+  &__item {
+    @include rwd(medium) {
+      display: flex;
+    }
+
+    > .article__img{
+      display: none;
+      @include rwd(tablet) {
+        display: block;
+      }
+    }
+  }
+  .article {
+    position: relative;
+    @include rwd(tablet) {
+      display: flex;
+      align-items: flex-start;
+    }
+    &__img {
+      //width: 100px;
+      //height: 100px;
+      object-fit: cover;
+
+      @include rwd(tablet) {
+        width: 196px;
+        height: 196px;
+        margin-right: 40px;
+      }
+      &-mobile {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        display: block;
+        margin-left: auto;
+        @include rwd(tablet) {
+          display: none;
+        }
+      }
+    }
+    &__info {
+
+      .wp-block-separator{
+        display: none;
+        margin-bottom: 8px;
+      }
+
+      @include rwd(medium) {
+        padding-right: 40px;
+
+        .wp-block-separator{
+          display: block;
+        }
+      }
+      &__header {
+        display: flex;
+        @include rwd(tablet) {
+          display: block;
+        }
+      }
+      &__tag {
+        font-style: normal;
+        font-weight: normal;
+        line-height: 18px;
+        font-size: 13px;
+        color: $light-red;
+        margin-bottom: 5px;
+        margin-left: 0;
+
+        a{
+          text-decoration: none;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+      &__title {
+        font-style: normal;
+        font-weight: bold;
+        line-height: 22px;
+        font-size: rem(16);
+        @include rwd(tablet) {
+          line-height: 27px;
+          font-size: rem(20);
+        }
+        color: $black;
+        margin-top: 3px;
+        margin-bottom: 5px;
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+        }
+
+        display: inline-block;
+        @include rwd(tablet){
+          display: inline;
+        }
+
+      }
+      &__credits {
+        font-style: normal;
+        font-weight: 500;
+        line-height: 21px;
+        font-size: 12px;
+        color: $button-gray;
+        margin-top: 5px;
+        margin-bottom: 5px;
+
+        @include rwd(tablet) {
+          font-size: 13px;
+        }
+
+      }
+      &__content {
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        font-size: rem(16);
+        margin-top: 15px;
+        @include rwd(tablet) {
+          font-size: rem(18);
+          margin-top: 0;
+        }
+        color: $mine-shaft;
+
+        margin-bottom: 0!important;
+      }
+    }
+  }
+}
+

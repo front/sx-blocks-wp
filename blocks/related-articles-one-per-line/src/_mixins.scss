@@ -1,0 +1,71 @@
+/*------------------------------------------
+Breakpoint
+------------------------------------------*/
+
+/// @param {String} $name - Breakpoint name
+/// @require $breakpoints-min
+
+@mixin rwd($name) {
+
+  // If the key exists in the map
+  @if map-has-key($breakpoints-min, $name) {
+    // Prints a media query based on the value
+    @media #{inspect(map-get($breakpoints-min, $name))} {
+      @content;
+    }
+  }
+
+  // If the key doesn't exist in the map
+  @else {
+    @warn "Unfortunately, no value could be retrieved from `#{$name}`. "
+        + "Available breakpoints-min are: #{map-keys($breakpoints-min)}.";
+  }
+}
+
+/// @param {String} $name - Breakpoint name
+/// @require $breakpoints-mmax
+
+@mixin rwdmax($name) {
+
+  // If the key exists in the map
+  @if map-has-key($breakpoints-max, $name) {
+    // Prints a media query based on the value
+    @media #{inspect(map-get($breakpoints-max, $name))} {
+      @content;
+    }
+  }
+
+  // If the key doesn't exist in the map
+  @else {
+    @warn "Unfortunately, no value could be retrieved from `#{$name}`. "
+        + "Available breakpoints-mmax are: #{map-keys($breakpoints-mmax)}.";
+  }
+}
+
+
+/*------------------------------------------
+Retina
+------------------------------------------*/
+
+@mixin retina($file, $type, $width, $height) {
+  background-image: url('../img/' + $file + '.' + $type);
+  background-size: $width $height;
+  @include rwd(retina) {
+    & {
+      background-image: url('../img/' + $file + '-2x.' + $type);
+      background-size: $width $height;
+    }
+  }
+}
+
+@mixin placeholder {
+  &::-webkit-input-placeholder {@content}
+  &:-moz-placeholder           {@content}
+  &::-moz-placeholder          {@content}
+  &:-ms-input-placeholder      {@content}
+}
+
+@function get-vw($target) {
+  $vw-context: (1920*.01) * 1px;
+  @return ($target/$vw-context) * 1vw;
+}

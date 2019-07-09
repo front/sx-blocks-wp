@@ -17,3 +17,4 @@ add_action( 'plugins_loaded', 'starterx_collection_plugin_load_plugin_textdomain
 
 // Including blocks
 include 'blocks/related-articles/index.php';
+include 'blocks/related-articles-one-per-line/index.php';
